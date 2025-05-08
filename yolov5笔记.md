@@ -58,7 +58,7 @@ x/lr2：学习率，通常用于细调特定层的权重。
 
 # 5.配置数据集文件,用与训练
 
-![image-20250110005703804](img\2.png)
+![1](img\2.png)
 
 # 6.训练命令
 
@@ -68,7 +68,7 @@ python train.py --weights yolov5n.pt
 
  
 
-![img223](img\3.png)
+![1](img\3.png)
 
 ```
 在控制面版里面输入 name_or_flags参数就行
