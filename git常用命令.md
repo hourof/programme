@@ -109,3 +109,36 @@ git push -u origin main
 git config --global --list
 ```
 
+# 6.配置ssh
+
+## 1.生成ssh密钥
+
+> ssh-keygen -t rsa -C "这里换上你的邮箱"
+>
+> 询问得时候一路回车键就行,然后自动生成密钥
+>
+> 
+>
+> 查看邮箱命令
+>
+> git config --global --list
+
+## 2.查看生成得密钥
+<font color=Blue>cat ~/.ssh/id_rsa.pub</font>
+
+把方框里面得内容复制
+
+![1](img\ssh.png)
+
+## 3.配置github
+
+![1](img/4.png)
+
+![1](img/5.png)
+
+## 4.测试ssh连接
+<font color="Blue">ssh -T git@github.com</font>
+
+> 当返回这段英文时就代表配置成功
+>
+> Hi hourof! You've successfully authenticated, but GitHub does not provide shell access.
