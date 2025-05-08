@@ -97,3 +97,15 @@ git remote set-url github git@github.com:toXXXX/repo-demo.git       更新 远�
 git push -u origin main
 ```
 
+## 提交历史记录出现的问题解决方案网址
+
+[解决Git连接失败：Failed to connect to github.com port 443 after 21090 ms: Couldn‘t connect to server ‍-腾讯云开发者社区-腾讯云](https://cloud.tencent.com/developer/article/2405656)
+
+# 5.用户信息
+
+## 1.查看用户自己配置
+
+```
+git config --global --list
+```
+
