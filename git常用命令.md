@@ -97,6 +97,14 @@ git remote set-url github git@github.com:toXXXX/repo-demo.git       更新 远�
 git push -u origin main
 ```
 
+## 5.合并分支
+
+```
+git merge feature-branch
+```
+
+
+
 ## 提交历史记录出现的问题解决方案网址
 
 [解决Git连接失败：Failed to connect to github.com port 443 after 21090 ms: Couldn‘t connect to server ‍-腾讯云开发者社区-腾讯云](https://cloud.tencent.com/developer/article/2405656)
@@ -142,3 +150,45 @@ git config --global --list
 > 当返回这段英文时就代表配置成功
 >
 > Hi hourof! You've successfully authenticated, but GitHub does not provide shell access.
+
+# 7.git本地仓库与远端仓库的对比
+
+你可以使用 `git fetch` 和 `git diff` 来对比本地仓库和远端仓库的版本。以下是常见方法：
+
+### 1. **检查本地和远端的差异**
+```bash
+git fetch origin
+git diff HEAD origin/main
+```
+**解释：**
+- `git fetch origin` 获取远端最新的状态，但不会合并到你的本地分支。
+- `git diff HEAD origin/main` 让你看到当前本地分支与远端分支的差异（假设远端分支是 `main`）。
+
+### 2. **查看提交历史对比**
+如果你想看本地和远端的提交差异，可以使用：
+```bash
+git log HEAD..origin/main --oneline
+```
+如果本地比远端多了提交，它会列出本地额外的提交；如果远端比本地多了提交，它会列出远端的新增提交。
+
+### 3. **检查是否有未推送的提交**
+```bash
+git status
+```
+如果有未推送的提交，它会提示你分支“落后于”远端，并建议你执行 `git push`。
+
+### 4. **对比整个仓库**
+如果想要检查本地和远端仓库的完整差异：
+```bash
+git fetch origin
+git diff origin/main
+```
+这个命令会显示所有代码的变更。
+
+如果你的本地仓库有多分支，你可以使用：
+```bash
+git branch -vv
+```
+它会显示本地分支是否落后或领先于远端分支。
+
+你现在的本地仓库和远端仓库有冲突吗？需要帮忙解决的话，我可以帮你分析！💡
