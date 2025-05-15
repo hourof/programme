@@ -75,5 +75,10 @@ python train.py --weights yolov5n.pt
 列子:
 python train.py  --weight  带上模型
 python train.py  --epochs  训练轮数
+python train.py  --batch-size  上传到gpu
+python train.py --weight yolov5n.pt --epochs 300 --batch--size 128
 ```
 
+# 8.pt模型转onnx
+
+python export.py --weights yolov5n.pt  --include onnx
