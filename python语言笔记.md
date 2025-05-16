@@ -682,7 +682,25 @@ print("Selected values:", selected_values)
 
 想了解更多高级用法或者应用场景（例如在图像处理、机器学习中进行条件滤波和数据筛选），你也可以深入阅读相关的博客或官方文档，这将帮助你在处理复杂数组时更高效地应用 `np.where`。
 
+## 2. np.asarray使用
 
+Yes, `np.asarray()` is a handy function in NumPy! It converts input data (like lists, tuples, or other array-like structures) into a NumPy array. It's useful when working with numerical data and image processing.
+
+For example:
+```python
+import numpy as np
+
+# Convert a list to a NumPy array
+data = [1, 2, 3, 4]
+arr = np.asarray(data)
+
+print(arr)  # Output: [1 2 3 4]
+print(type(arr))  # Output: <class 'numpy.ndarray'>
+```
+
+It's particularly helpful when working with images in OpenCV, as you might recall when using `np.asarray()` to transform screenshots or raw image data.
+
+Want to refine its use for a specific part of your project? I'm happy to help!
 
 # 13.python class 类教程
 
@@ -724,3 +742,78 @@ AutomaticTask 初始化
 `super().__init__()` 确保 **父类 `BaseTask` 先初始化**，然后再执行子类 `AutomaticTask` 的 `__init__()` 代码。
 
 如果 `AutomaticTask` **没有继承父类**，那么 `super().__init__()` 就没必要写。
+
+# 14.查看变量数据类型
+
+`type()` 是 Python 的内置函数，用于返回一个对象的类型。当你对某个变量（例如 `hs`）使用 `type(hs)` 时，它会返回该变量的数据类型，比如 `<class 'list'>`、`<class 'str'>` 等。
+
+下面是一些具体的用法示例：
+
+---
+
+### 示例 1：判断 `split()` 方法返回的数据类型
+
+当你使用字符串的 `split()` 方法时，它会返回一个列表。你可以用 `type()` 来验证这一点：
+
+```python
+host = "127.0.0.1:80"
+hs = host.split(":")
+print(type(hs))  # 输出: <class 'list'>
+```
+
+解释：  
+- `"127.0.0.1:80".split(":")` 根据分隔符 `:` 切割字符串，返回一个列表。  
+- `type(hs)` 返回 `hs` 的数据类型，即 `<class 'list'>`。
+
+---
+
+### 示例 2：在条件判断中使用 `type()`
+
+有时候你可能需要根据变量的数据类型执行不同的操作。比如，当你想确认 `hs` 是否为列表时，可以使用 `type()` 进行判断：
+
+```python
+host = "127.0.0.1:80"
+hs = host.split(":")
+
+# 通过 type() 判断 hs 是否为列表
+if type(hs) is list:
+    print("hs 是一个列表")
+else:
+    print("hs 不是列表")
+```
+
+解释：  
+- `type(hs) is list` 检查 `hs` 的类型是否与 `list` 对象完全相同。
+
+> **注意：**  
+> 在实际判断类型时，更推荐使用 `isinstance()`，因为它不仅能够判断是否是指定类型，还能兼容继承情况。例如：  
+> ```python
+> if isinstance(hs, list):
+>  print("hs 是一个列表")
+> ```
+> 这两种方式在功能上类似，但 `isinstance()` 更加灵活和健壮。
+
+---
+
+### 示例 3：查看其他变量的数据类型
+
+你可以对任意变量使用 `type()` 来检查其类型。例如：
+
+```python
+# 一个整数
+a = 10
+print(type(a))  # 输出: <class 'int'>
+
+# 一个浮点数
+b = 3.14
+print(type(b))  # 输出: <class 'float'>
+
+# 一个字符串
+c = "hello"
+print(type(c))  # 输出: <class 'str'>
+```
+
+---
+
+总结：  
+`type()` 是一个非常有用的工具函数，可以让你快速了解变量的具体数据类型。它常用于调试、日志记录和条件判断中，帮助你确保程序中变量的数据类型符合预期。希望这些示例能帮助你更好地理解 `type()` 的用法。如果你有更多问题或想了解更深入的内容，比如面向对象时如何动态检查类型，请继续提问！
