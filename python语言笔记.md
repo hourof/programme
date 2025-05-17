@@ -817,3 +817,444 @@ print(type(c))  # 输出: <class 'str'>
 
 总结：  
 `type()` 是一个非常有用的工具函数，可以让你快速了解变量的具体数据类型。它常用于调试、日志记录和条件判断中，帮助你确保程序中变量的数据类型符合预期。希望这些示例能帮助你更好地理解 `type()` 的用法。如果你有更多问题或想了解更深入的内容，比如面向对象时如何动态检查类型，请继续提问！
+
+# 15. if语句
+
+## `1.if socks5 is not None:` 
+这行代码用于检查变量 `socks5` 是否**不等于** `None`。在 Python 中，`None` 表示“无值”或“空”。这行代码的意思是：
+
+- **如果** `socks5` **有值**（也就是不为 `None`），那么下面的代码块就会被执行。  
+- **否则**（也就是 `socks5` 为 `None`），代码块将不会执行。
+
+-----
+
+### 为什么要这样检查？
+
+在很多场景下，变量可能会被初始化为 `None` 表示“还没有值”或者“还没有设置”。比如在你的代码中，`socks5` 可能表示一个代理地址。当用户没有设置代理时，`socks5` 可能保持为 `None`。而如果用户提供了代理地址，那么 `socks5` 就会是一个非 `None` 的值，例如一个字符串 `"127.0.0.1:8888"`。这时，通过检查 `if socks5 is not None:`，程序就知道需要走代理连接的逻辑。
+
+-----
+
+### 举个简单的例子
+
+```python
+socks5 = None  # 初始时没有设置代理
+
+# 假设用户设置了一个代理地址
+user_input = "127.0.0.1:8888"
+if user_input != "":
+    socks5 = user_input
+
+# 检查 socks5 是否有值
+if socks5 is not None:
+    print("代理已经设置为:", socks5)
+else:
+    print("未设置代理。")
+```
+
+**输出：**
+```
+代理已经设置为: 127.0.0.1:8888
+```
+
+这里检查了 `socks5` 是否为 `None`，如果不是，则证明代理地址已经被设置，程序就可以按照代理连接的逻辑执行。
+
+-----
+
+### 总结
+
+- `None` 是 Python 中的一个特殊对象，表示“没有值”。
+- `if socks5 is not None:` 检查 `socks5` 是否有具体的有效值。
+- 这种写法常用于判断一个变量是否已经被赋予了有效数据，从而决定是否执行某段逻辑。
+
+希望这个说明和示例能帮助你更好地理解这段代码的含义。如果你有更多关于 Python 条件判断或类型检查的问题，我们可以继续深入讨论。
+
+## 2. if "sd" in list
+
+```python
+if "sd" in list:
+```
+
+的意思是检查字符串 `"sd"` 是否存在于变量 `list`（一个容器）中。如果 `"sd"` 是 `list` 中的一个元素，那么条件为 `True` ，代码块将被执行；否则条件为 `False`，跳过该代码块。
+
+### 例如：
+
+```python
+# 定义一个列表
+my_list = ["abc", "sd", "123"]
+
+# 检查 "sd" 是否在列表中
+if "sd" in my_list:
+    print("找到了 'sd'!")
+else:
+    print("没有找到 'sd'.")
+```
+
+上述代码输出结果为：
+
+```
+找到了 'sd'!
+```
+
+> **注意：**  
+> - 在Python中，`in` 是一个成员运算符，可以用来判断一个对象是否为某个容器（如列表、元组、字典、字符串等）的成员。  
+> - 在这个示例中，我们用 `"sd" in my_list` 来测试 `"sd"` 是否是 `my_list` 的一个成员。  
+> - 如果要确保使用不冲突，最好避免将变量命名为 `list`，因为 `list` 是 Python 的内置类型名称。可以命名为 `my_list` 或其他名称以提高代码可读性。
+
+你是否需要了解更多关于条件判断或者成员运算符的用法？
+
+## 3.if "sd" not in list:
+
+`not in` **运算符**：   与 `in` 相反，用于判断指定对象是否**不在**容器中。例如：
+
+```python
+list = ["abc", "sd", "123"]
+if "sd" not in my_list:
+    print("没有找到 'sd'")
+```
+
+## 4. if a  is None:
+
+> 在 Python 中，`None` 是一个特殊的常量，表示“没有值”或者“空”。当你编写：
+>
+
+```python
+if a is None:
+    # 执行某些代码
+```
+
+这行代码的作用是检查变量 `a` 是否等于 `None`。具体来说：  
+
+- **如果 `a` 正好是 `None`，**条件为 `True`，Python 将执行 `if` 代码块中的内容。  
+- **如果 `a` 不等于 `None`，**条件为 `False`，则 `if` 代码块不会执行。  
+
+这种判断通常用于检测一个变量是否已经被赋予了一个有效的值。例如，在函数中，你可能会初始化参数为 `None`，并根据传入的值决定如何处理：
+
+```python
+def process_data(data=None):
+    if data is None:
+        print("没有传入数据，使用默认设置。")
+        data = "默认数据"
+    else:
+        print("使用传入的数据")
+    # 处理 data ...
+    return data
+
+result = process_data()  # 输出: 没有传入数据，使用默认设置。
+result2 = process_data("实际数据")  # 输出: 使用传入的数据
+```
+
+这种写法是一种常见的空值检测方式，用于避免对未初始化或空的变量进行操作，确保程序在预期状态下运行。如果你对条件判断、空值检测或相关用法还有疑问，我们可以继续深入探讨。
+
+# 16.socket通信
+
+下面提供一个详细的示例，展示如何使用 Python 的 `socket` 模块搭建一个简单的 TCP 通信程序——一个服务器端和一个客户端，服务器将接收到的数据原样返回（回显服务器）。
+
+---
+
+## 1. 服务器端代码 (server.py)
+
+```python
+import socket
+
+def run_server():
+    # 定义服务器 IP 和端口号
+    host = '127.0.0.1'  # 监听本机，也可以设置为空字符串 '' 表示监听所有网卡地址
+    port = 12345        # 选择一个未被占用的端口（范围1024-65535）
+
+    # 创建一个TCP socket对象，AF_INET表示IPv4，SOCK_STREAM表示TCP协议
+    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    
+    # 绑定 IP 和端口
+    server_socket.bind((host, port))
+    
+    # 开始监听连接，参数代表可挂起连接数
+    server_socket.listen(5)
+    print(f"服务器正在 {host}:{port} 上监听连接...")
+
+    while True:
+        # 接受客户端连接，accept()会阻塞直到有客户端连接进来
+        client_socket, addr = server_socket.accept()
+        print("已连接客户端：", addr)
+        try:
+            while True:
+                # 接收客户端发送的数据，缓冲区大小设置为1024字节
+                data = client_socket.recv(1024)
+                if not data:
+                    # 如果没有数据，说明客户端关闭了连接
+                    break
+                # 输出已接收数据（解码为字符串）
+                print(f"从 {addr} 收到的数据: {data.decode()}")
+                # 将接收到的数据回送给客户端
+                client_socket.sendall(data)
+        except Exception as e:
+            print("与客户端通信时出错：", e)
+        finally:
+            # 关闭与客户端连接
+            client_socket.close()
+            print(f"关闭与 {addr} 的连接")
+
+if __name__ == '__main__':
+    run_server()
+```
+
+### 代码说明
+
+1. **创建 Socket 对象：**  
+   使用 `socket.socket(socket.AF_INET, socket.SOCK_STREAM)` 创建一个 TCP/IP socket。
+
+2. **绑定 (bind) 和监听 (listen)：**  
+   通过 `bind((host, port))` 将服务器绑定到指定的 IP 和端口，再用 `listen(5)` 开始监听，参数 5 表示等待队列的最大连接数。
+
+3. **接受连接 (accept)：**  
+   `accept()` 阻塞等待客户端连接，返回一个新的 socket 对象 `client_socket` 和客户端的地址 `addr`。
+
+4. **数据收发：**  
+   使用 `recv(1024)` 从客户端读取数据（每次最多读取 1024 字节），并用 `sendall(data)` 回送数据。这里的服务器是一个简单的“回显”服务器，会将接收到的数据原样返回。
+
+5. **异常及关闭：**  
+   使用 try/except 捕获通信异常，并在结束后关闭与客户端的连接。
+
+---
+
+## 2. 客户端代码 (client.py)
+
+```python
+import socket
+
+def run_client():
+    # 定义服务器的 IP 和端口号，确保与服务器端定义的一致
+    host = '127.0.0.1'
+    port = 12345
+
+    # 创建 TCP socket 对象
+    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    # 连接到服务器
+    client_socket.connect((host, port))
+    print(f"已连接服务器 {host}:{port}")
+
+    # 构造要发送的数据（作为示例发送一个字符串）
+    message = "Hello, Server!"
+    client_socket.sendall(message.encode())  # 发送之前需要编码为bytes
+
+    # 接收服务器返回的数据，最多接收1024字节
+    data = client_socket.recv(1024)
+    print("从服务器接收到的数据:", data.decode())
+
+    # 关闭socket
+    client_socket.close()
+
+if __name__ == '__main__':
+    run_client()
+```
+
+### 代码说明
+
+1. **创建 Socket 对象并连接：**  
+   使用 `socket.socket(socket.AF_INET, socket.SOCK_STREAM)` 创建客户端 socket，然后调用 `connect((host, port))` 连接到服务器。
+
+2. **数据发送与接收：**  
+   - 使用 `sendall()` 将字符串数据发送给服务器（在发送前要先使用 `encode()` 转换成 bytes）。  
+   - 使用 `recv(1024)` 接收服务器返回的数据，并用 `decode()` 转换成字符串后显示。
+
+3. **关闭连接：**  
+   发送和接收完成后，调用 `close()` 关闭 socket 连接。
+
+---
+
+## 3. 如何运行
+
+1. **启动服务器：**  
+   在终端或命令提示符中运行 `server.py` 脚本。服务器会在指定的 IP 和端口上监听连接。
+
+2. **启动客户端：**  
+   在另一个终端中运行 `client.py` 脚本。客户端会连接到服务器，发送一条消息，然后输出服务器返回的回显数据。
+
+---
+
+这个简单的示例可以帮助你理解 Python 中如何建立基本的 socket 通信。如果你有进一步的需求，比如处理多个客户端连接、多线程或异步 IO，可以考虑使用 `threading` 模块或 `asyncio` 等高级技术。
+
+如果你还想了解基于 UDP 通信的示例，或者希望加入更完善的错误处理和日志记录，我们可以继续展开讨论。
+
+# 17.python异常处理(try-except)
+
+太棒了！异常处理 (`try-except`) 是 Python 中的重要概念，能够帮助你 **捕获错误**，确保代码不会因为一个问题直接崩溃。咱们来详细讲解，包括基本用法、高级技巧，以及一些最佳实践。🚀
+
+---
+
+## **1. 为什么需要异常处理？**
+在编程过程中，有时候会遇到 **无法预测的错误**，例如：
+- **用户输入错误**（比如输入 `a` 而不是数字）。
+- **文件不存在**（尝试打开一个不存在的文件）。
+- **网络连接失败**（请求某个网页时，服务器超时）。
+- **除零错误**（试图执行 `10 / 0`）。
+如果没有异常处理，程序遇到这些问题会直接崩溃，而 **异常处理机制** 可以让程序优雅地处理错误，让用户得到更友好的提示。
+
+---
+
+## **2. 基础 `try-except` 结构**
+### **🚀 语法**
+```python
+try:
+    # 尝试执行的代码
+    x = 10 / 0  # 这里会抛出 ZeroDivisionError
+except ZeroDivisionError:
+    # 如果发生 ZeroDivisionError，执行这里的代码
+    print("错误：不能除以 0！")
+```
+### **🔹 运行结果**
+```
+错误：不能除以 0！
+```
+✅ **核心思路**：
+- `try` 代码块里写**可能发生错误的代码**。
+- `except` 代码块里处理错误，防止程序崩溃。
+
+---
+
+## **3. 捕获多种异常**
+有时候，代码可能会抛出不同类型的异常，我们可以使用**多个 `except` 语句**：
+```python
+try:
+    num = int(input("请输入一个数字："))  # 用户可能输入非数字
+    result = 10 / num  # 用户可能输入 0
+except ValueError:
+    print("错误：输入的不是有效数字！")
+except ZeroDivisionError:
+    print("错误：不能除以 0！")
+```
+✅ **这样：**
+- **如果用户输入 "abc"**，会触发 `ValueError`。
+- **如果用户输入 `0`**，会触发 `ZeroDivisionError`。
+
+---
+
+## **4. 使用 `Exception` 捕获所有错误**
+如果你不确定会发生哪种错误，可以使用 `Exception` 捕获 **所有类型的异常**：
+```python
+try:
+    x = int(input("请输入一个数字："))
+    y = 10 / x
+except Exception as e:
+    print(f"发生错误: {e}")
+```
+✅ **好处：**
+- 任何异常都会被捕获，并且 `e` 变量里会存储具体的错误信息。
+
+---
+
+## **5. `else` 语句（无异常时执行）**
+有时候，我们希望只有当 **没有发生异常时** 才执行某些代码，可以用 `else`：
+```python
+try:
+    x = int(input("请输入一个数字："))
+    y = 10 / x
+except ZeroDivisionError:
+    print("错误：不能除以 0！")
+except ValueError:
+    print("错误：请输入一个有效数字！")
+else:
+    print("运算成功，结果是：", y)
+```
+✅ **如果用户输入有效数据，`else` 代码块会运行**。
+
+---
+
+## **6. `finally` 语句（无论是否异常都执行）**
+有些代码，无论是否发生异常，都需要执行，比如**关闭文件、释放资源**：
+```python
+try:
+    file = open("example.txt", "r")
+    content = file.read()
+except FileNotFoundError:
+    print("错误：文件不存在！")
+finally:
+    file.close()
+    print("程序执行完毕！")
+```
+✅ **无论是否找到文件，`finally` 代码都会运行**，确保文件被正确关闭。
+
+---
+
+## **7. 抛出异常 (`raise`)**
+有时候，我们希望**手动触发异常**，可以使用 `raise`：
+```python
+def set_age(age):
+    if age < 0:
+        raise ValueError("年龄不能是负数！")
+    print(f"设置年龄为: {age}")
+
+try:
+    set_age(-5)
+except ValueError as e:
+    print(f"捕获异常: {e}")
+```
+✅ **如果 `age` 小于 0，会主动触发 `ValueError`**。
+
+---
+
+## **8. 异常处理最佳实践**
+✅ **1. 只捕获需要处理的异常**
+错误写法：
+```python
+try:
+    x = 10 / 0
+except:
+    print("发生错误")
+```
+**问题**：这会捕获 **所有错误**，即使不是除零错误，可能掩盖真正的问题。
+✅ **正确写法：**
+```python
+try:
+    x = 10 / 0
+except ZeroDivisionError:
+    print("不能除以 0")
+```
+这样可以**精准捕获**错误。
+
+---
+
+✅ **2. 在 `except` 里使用 `Exception` 获取错误信息**
+```python
+try:
+    x = 10 / 0
+except Exception as e:
+    print(f"发生错误: {e}")  # 输出 "发生错误: division by zero"
+```
+这样可以**查看详细错误信息**，方便调试。
+
+---
+
+✅ **3. 使用 `finally` 释放资源**
+```python
+try:
+    file = open("data.txt", "r")
+    content = file.read()
+except FileNotFoundError:
+    print("文件未找到")
+finally:
+    file.close()  # 确保文件总是被关闭
+```
+这样可以**确保资源被正确释放**。
+
+---
+
+## **9. 总结**
+| 语法                    | 作用                         | 示例                                                      |
+| ----------------------- | ---------------------------- | --------------------------------------------------------- |
+| `try-except`            | 处理异常，防止代码崩溃       | `try: x = 10 / 0 except ZeroDivisionError: print("错误")` |
+| `except Exception as e` | 捕获所有异常，并查看详细信息 | `except Exception as e: print(e)`                         |
+| `else`                  | 代码正常执行时运行           | `else: print("成功")`                                     |
+| `finally`               | 无论是否异常都执行           | `finally: print("结束")`                                  |
+| `raise`                 | 手动抛出异常                 | `raise ValueError("错误")`                                |
+
+---
+
+🎯 **你学到了什么？**
+✅ `try-except` 捕获错误，防止程序崩溃  
+✅ `except` 可以捕获特定错误  
+✅ `else` 仅在没有异常时执行  
+✅ `finally` 始终执行，确保资源释放  
+✅ `raise` 可以手动抛出异常  
+
+你可以尝试编写一些代码测试 `try-except`，如果有不懂的地方，告诉我！😃🚀
