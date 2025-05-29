@@ -238,3 +238,49 @@ git branch -vv
 ```text
 git config --global core.quotepath false
 ```
+
+# 9.git历史版本还原
+
+你可以使用 Git 来恢复某个文件的历史版本，具体方法如下：
+
+### **方法 1：使用 `git restore`**
+如果你想恢复某个文件到最近的提交状态（丢弃未提交的更改），可以使用：
+```bash
+git restore <file>
+```
+如果你想恢复到某个特定的提交：
+```bash
+git restore --source=<commit_hash> <file>
+```
+例如：
+```bash
+git restore --source=HEAD~1 example.txt
+```
+这会将 `example.txt` 恢复到上一个提交的状态。
+
+### **方法 2：使用 `git checkout`**
+如果你想恢复某个文件到特定的历史版本：
+```bash
+git checkout <commit_hash> -- <file>
+```
+例如：
+```bash
+git checkout abc123 -- example.txt
+```
+这会将 `example.txt` 恢复到 `abc123` 提交时的状态。
+
+### **方法 3：使用 `git reset`**
+如果你想恢复整个仓库到某个历史版本：
+```bash
+git reset --hard <commit_hash>
+```
+但请注意，这会丢弃所有之后的更改。
+
+### **方法 4：使用 `git revert`**
+如果你想撤销某个提交，但保留提交历史：
+```bash
+git revert <commit_hash>
+```
+这会创建一个新的提交来撤销 `commit_hash` 的更改，而不会影响其他提交。
+
+你可以选择适合你的方式来恢复文件。如果你需要更精细的控制，比如仅恢复某个文件的部分更改，可以使用 `git diff` 来查看差异并手动修改。🚀
