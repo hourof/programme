@@ -499,6 +499,7 @@ a = np.array([1, 2, 3, 4, 5])
 indices = np.where(a > 3)
 print("Indices where a > 3:", indices)
 # 输出: (array([3, 4]),)
+#返回的是数据索引坐标
 ```
 
 **示例2：二维数组**
@@ -670,7 +671,7 @@ print("Selected values:", selected_values)
 
 ---
 
-## 5. 总结
+### 5. 总结
 
 - **单参数调用**：返回一个元组，元组中的每个数组分别包含各维度上满足条件的索引。这对于多维数组的坐标定位非常有用。[ ^2^ ]
 - **三参数调用**：实现条件选择，相当于一个向量化的 if-else。特别适合数据清洗、批量替换数据等情况。[ ^3^ ]
@@ -701,6 +702,84 @@ print(type(arr))  # Output: <class 'numpy.ndarray'>
 It's particularly helpful when working with images in OpenCV, as you might recall when using `np.asarray()` to transform screenshots or raw image data.
 
 Want to refine its use for a specific part of your project? I'm happy to help!
+
+## 3. np.linspace(start, stop, num)生成等间距数值
+
+> 作用：返回在区间[start, stop]内计算出的num个均匀分布的样本
+>
+> `np.linspace(0,1， 5)` 的参数：
+>
+> - `start`: 起始值（这里是 `0`）
+> - `stop`: 结束值（这里是 `1`）
+> - `num`: 生成的数量（这里是 `100`）
+> - 数学计算公式为
+>
+> $$
+> x_i = start + i *\frac{stop-start}{num -1}
+> $$
+
+**示例：**
+
+```python
+import numpy as np
+
+values = np.linspace(0, 1, 5)  # 生成 5 个等间距数值
+print(values)
+
+```
+
+**输出:**
+
+```python
+[0.   0.25  0.5  0.75  1.]
+
+
+```
+
+## 4.np.zeros(shape) 创建一个全是0的矩阵
+
+**具体作用:**
+
+- np.zeros(shape)会生成一个指定形状的数组,并用0填充
+- 当shape为2时，表示创建一个长度为2的一维数组
+
+**示例：**
+
+```python
+import numpy as np
+
+arr = np.zeros(2)
+print(arr)
+
+```
+
+**输出:**
+
+```python
+[0. 0.]
+
+```
+
+**扩展用法:**
+
+创建一个全为0的二维数组，可以这样写:
+
+```python
+arr2d = np.zeros((3, 2))  # 3 行 2 列
+print(arr2d)
+
+```
+
+**输出:**
+
+```python
+[[0. 0.]
+ [0. 0.]
+ [0. 0.]]
+
+```
+
+
 
 # 13.python class 类教程
 
@@ -1140,6 +1219,38 @@ except Exception as e:
 ```
 ✅ **好处：**
 - 任何异常都会被捕获，并且 `e` 变量里会存储具体的错误信息。
+## 5.finally:
+
+  `finally:` 语句是 **Python 异常处理机制** 中的一部分，它用于 **确保无论是否发生异常，代码都会执行**。
+
+  在你的代码中：
+  ```python
+  try:
+      a += 1  # 这里的代码受锁保护
+  finally:
+      lock.release()  # 释放锁
+  ```
+  - **`try:`** 代码块中执行 `a += 1`，如果这里发生异常（比如 `a` 未定义），它会跳到 `finally:` 部分。
+  - **`finally:`** 代码块 **始终会执行**，即使 `try:` 代码块中发生了错误，`lock.release()` 仍然会运行，保证锁被释放，避免死锁。
+
+  ### **为什么 `finally:` 重要？**
+  如果你这样写：
+  ```python
+  lock.acquire()
+  a += 1  # 假设这里发生异常
+  lock.release()  # 可能不会被执行
+  ```
+  **如果 `a += 1` 抛出异常，`lock.release()` 可能不会执行，导致线程锁未释放，可能引起死锁**。但使用 `finally:` 可以保证锁总是被释放：
+  ```python
+  lock.acquire()
+  try:
+      a += 1  # 代码可能出错
+  finally:
+      lock.release()  # 确保锁释放
+  ```
+  即使 `a += 1` 失败，程序仍然会释放锁，确保其他线程不会被阻塞。
+
+  这样你的线程锁就能更安全地运行！😃
 
 ---
 
@@ -1258,3 +1369,61 @@ finally:
 ✅ `raise` 可以手动抛出异常  
 
 你可以尝试编写一些代码测试 `try-except`，如果有不懂的地方，告诉我！😃🚀
+
+# 18运算符
+
+## 1.解包运算符
+
+在 `print(*curve)` 中，`*` 是 **解包运算符**（`unpacking operator`），它的作用是 **将 `curve` 数组中的元素解包**，即把 `curve` 里的 **每一行单独传递给 `print()`**。
+
+---
+
+**代码解析**
+
+```python
+curve = np.array([[0, 0], [1, 2], [2, 3], [3, 3]])
+
+print(*curve)
+```
+这里 `curve` 是一个 **二维 NumPy 数组**：
+```
+array([[0, 0], 
+       [1, 2], 
+       [2, 3], 
+       [3, 3]])
+```
+当你 `print(*curve)` 时，相当于：
+```python
+print([0, 0], [1, 2], [2, 3], [3, 3])
+```
+输出结果：
+```
+[0, 0] [1, 2] [2, 3] [3, 3]
+```
+---
+
+**`*` 的作用**
+- `*curve` **将二维数组的每一行解包为独立的列表**
+- 直接 `print(curve)` 会输出整个数组结构
+- `print(*curve)` 则会 **分开打印每一行**
+
+---
+
+**示例**
+你可以用 `*` 在函数传参时进行解包：
+```python
+def func(a, b, c):
+    print(a, b, c)
+
+values = [1, 2, 3]
+func(*values)  # 相当于 func(1, 2, 3)
+```
+输出：
+```
+1 2 3
+```
+
+---
+
+**你的代码中，`print(*curve)` 是为了让 `curve` 中的每一行单独显示，而不是整个数组结构。**  
+希望这个解释清楚！如果你想更深入了解 `*` 的应用，告诉我你的需求，我可以给你更多例子 😃
